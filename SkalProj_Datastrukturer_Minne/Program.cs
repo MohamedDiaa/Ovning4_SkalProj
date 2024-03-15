@@ -228,7 +228,7 @@ namespace SkalProj_Datastrukturer_Minne
             // eftersom de som kommer först ska vänta på de som kommer senare och det är Orimiligt att ordna
             // i ICA fallet.
 
-           
+
             Console.WriteLine(
                     "Please push + or pop - from the list" +
                     " 0 to get back to Main menu. " +
@@ -299,11 +299,13 @@ namespace SkalProj_Datastrukturer_Minne
             string input = Console.ReadLine();
             Stack<char> theStack = new Stack<char>();
 
-            foreach (char ch in input) {
+            foreach (char ch in input)
+            {
                 theStack.Push(ch);
             }
 
-            while (theStack.Count != 0) {
+            while (theStack.Count != 0)
+            {
 
                 Console.Write(theStack.Pop());
             }
@@ -319,8 +321,80 @@ namespace SkalProj_Datastrukturer_Minne
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
 
+
+            Console.WriteLine("Please enter string with the paranethesis for validation");
+            string input = Console.ReadLine();
+
+            Stack<char> theStack = new Stack<char>();
+
+            foreach (char i in input)
+            {
+                switch (i)
+                {
+
+                    case '(':
+                    case '{':
+                    case '[':
+                    case '<':
+                        theStack.Push(i);
+                        break;
+
+
+                    case ')':
+                    case '}':
+                    case ']':
+                    case '>':
+                        if (theStack.Count > 0)
+                        {
+                            char x = theStack.Pop();
+                            Console.WriteLine($"{i}  {x}");
+                            if (x != MatchedParanthes(i))
+                            {
+                                Console.WriteLine("the entered string paranethis is invalid");
+                                return;
+                            }
+                        }
+                        else {
+                            Console.WriteLine("the entered string paranethis is invalid");
+                            return;
+                        }
+                        break;
+                    default:
+                        break;
+
+                }
+            }
+
+            if (theStack.Count == 0)
+            {
+                Console.WriteLine("the entered string paranethis is valid");
+            }
+            else
+            {
+
+                Console.WriteLine("the entered string paranethis is invalid");
+
+            }
+
         }
 
+        static char? MatchedParanthes(char i) {
+
+            switch (i) {
+                case ')':
+                    return '(';
+
+                case '}':
+                    return '{';
+                case ']':
+                    return '[';
+                case '>':
+                    return '<';
+                default:
+                    return null;
+
+            }
+        }
     }
 }
 
