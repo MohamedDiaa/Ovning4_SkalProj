@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace SkalProj_Datastrukturer_Minne
 {
@@ -62,22 +64,83 @@ namespace SkalProj_Datastrukturer_Minne
         /// </summary>
         static void ExamineList()
         {
-            /*
-             * Loop this method untill the user inputs something to exit to main menue.
-             * Create a switch statement with cases '+' and '-'
-             * '+': Add the rest of the input to the list (The user could write +Adam and "Adam" would be added to the list)
-             * '-': Remove the rest of the input from the list (The user could write -Adam and "Adam" would be removed from the list)
-             * In both cases, look at the count and capacity of the list
-             * As a default case, tell them to use only + or -
-             * Below you can see some inspirational code to begin working.
-            */
 
-            //List<string> theList = new List<string>();
-            //string input = Console.ReadLine();
-            //char nav = input[0];
-            //string value = input.substring(1);
+            //1. Skriv klart implementationen av ExamineList-metoden så att undersökningen blir genomförbar.
+            // Gjort
+
+            //2. När ökar listans kapacitet? (Alltså den underliggande arrayens storlek)
+            // när listelement antalet matchar Kapacitet.
+
+            //3. Med hur mycket ökar kapaciteten?
+            // den ökar med kapacitet antalet som vi sätt i konstrukotret i det här fallet 4
+            // så 4 ,8, 16 ...
+
+            //4. Varför ökar inte listans kapacitet i samma takt som element läggs till?
+            // det ökar bara när det behovs och det finns inge ledgia plats på listan
+
+            //5.Minskar kapaciteten när element tas bort ur listan?
+            // nej, det gör inte.
+
+            //6. När är det då fördelaktigt att använda en egendefinierad array istället för en lista?
+            //när vi vet i förväg hur mycket element ska vi lägga in
 
             //switch(nav){...}
+            Console.WriteLine(
+"Please add + or remove from the list" +
+" 0 to get back to Main menu. " +
+"1 to print the array" +
+"c to print the array count" +
+"\nexample:");
+            Console.WriteLine("+Adam and Adam would be added");
+            Console.WriteLine("-Adam and Adam would be removed");
+
+            List<string> theList = new List<string>(capacity: 4);
+            do
+            {
+
+                string input = Console.ReadLine();
+                try
+                {
+                    char nav = input[0];
+
+                    switch (nav)
+                    {
+
+                        case '0':
+                            return;
+                        case '1':
+                            foreach (string element in theList)
+                            {
+                                Console.Write(element + ", ");
+                            }
+                            Console.WriteLine();
+
+                            break;
+                        case 'c':
+                            Console.WriteLine($"List Count {theList.Count}");
+                            Console.WriteLine($"List Capacity {theList.Capacity}");
+                            break;
+                        case '+':
+                            string value = input.Substring(1);
+                            theList.Add(value);
+                            break;
+                        case '-':
+                            string value2 = input.Substring(1);
+                            theList.RemoveAll(element => element == value2);
+                            break;
+                        default:
+                            Console.WriteLine("input of + and - is missing");
+                            break;
+                    }
+
+                }
+                catch (Exception e)
+                {
+
+                    Console.WriteLine("value is missing");
+                }
+            }
+            while (true);
         }
 
         /// <summary>
