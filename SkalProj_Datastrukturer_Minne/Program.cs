@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
+using System.Reflection;
 using System.Xml.Linq;
 
 namespace SkalProj_Datastrukturer_Minne
@@ -42,6 +44,7 @@ namespace SkalProj_Datastrukturer_Minne
                         break;
                     case '3':
                         ExamineStack();
+                        //ExamineStack_ReverseText();
                         break;
                     case '4':
                         CheckParanthesis();
@@ -218,11 +221,94 @@ namespace SkalProj_Datastrukturer_Minne
         /// </summary>
         static void ExamineStack()
         {
-            /*
-             * Loop this method until the user inputs something to exit to main menue.
-             * Create a switch with cases to push or pop items
-             * Make sure to look at the stack after pushing and and poping to see how it behaves
-            */
+
+            //1.Simulera ännu en gång ICA-kön på papper. Denna gång med en stack.Varför är det
+            //inte så smart att använda en stack i det här fallet?
+
+            // eftersom de som kommer först ska vänta på de som kommer senare och det är Orimiligt att ordna
+            // i ICA fallet.
+
+           
+            Console.WriteLine(
+                    "Please push + or pop - from the list" +
+                    " 0 to get back to Main menu. " +
+                    "1 to print the stack" +
+                    "c to print the stack count" +
+                    "\nexample:");
+
+            Console.WriteLine("+Adam and Adam would be added");
+            Console.WriteLine("-Adam and Adam would be removed");
+
+            Stack<string> theStack = new Stack<string>();
+            do
+            {
+
+                string input = Console.ReadLine();
+                try
+                {
+                    char nav = input[0];
+
+                    switch (nav)
+                    {
+
+                        case '0':
+                            return;
+                        case '1':
+
+                            foreach (string element in theStack)
+                            {
+                                Console.WriteLine(element);
+                            }
+                            Console.WriteLine();
+
+                            break;
+                        case 'c':
+                            Console.WriteLine($"List Count {theStack.Count}");
+                            break;
+                        case '+':
+                            string value = input.Substring(1);
+                            theStack.Push(value);
+                            break;
+                        case '-':
+                            string value2 = input.Substring(1);
+                            theStack.Pop();
+                            break;
+                        default:
+                            Console.WriteLine("input of + and - is missing");
+                            break;
+                    }
+
+                }
+                catch (Exception e)
+                {
+
+                    Console.WriteLine("value is missing");
+                }
+            }
+            while (true);
+        }
+
+        //2.Implementera en ReverseText-metod som läser in en sträng från användaren och
+        //med hjälp av en stack vänder ordning på teckenföljden för att sedan skriva ut den
+        //omvända strängen till användaren.
+
+        static void ExamineStack_ReverseText()
+        {
+
+            Console.WriteLine("Please enter text");
+            string input = Console.ReadLine();
+            Stack<char> theStack = new Stack<char>();
+
+            foreach (char ch in input) {
+                theStack.Push(ch);
+            }
+
+            while (theStack.Count != 0) {
+
+                Console.Write(theStack.Pop());
+            }
+            Console.Write("\n");
+
         }
 
         static void CheckParanthesis()
