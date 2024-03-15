@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
 
@@ -153,6 +154,63 @@ namespace SkalProj_Datastrukturer_Minne
              * Create a switch with cases to enqueue items or dequeue items
              * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
             */
+            // Först In Först Ut (FIFO)principen.
+
+            Console.WriteLine(
+                "Please enqueue(+) or dequeue(-) from the queue" +
+                " 0 to get back to Main menu." +
+                "1 to print the queue elements" +
+                 "\nexample:");
+
+            Console.WriteLine("+Adam and Adam would be enqueued");
+            Console.WriteLine("- will dequeue the first in the queue");
+
+            Queue<string> queue = new Queue<string>();
+            do
+            {
+
+                string input = Console.ReadLine();
+                try
+                {
+                    char nav = input[0];
+
+                    switch (nav)
+                    {
+
+                        case '0':
+                            return;
+                        case '1':
+                            foreach (string element in queue)
+                            {
+                                Console.Write(element + ", ");
+                            }
+                            Console.WriteLine();
+
+                            break;
+                        case 'c':
+                            Console.WriteLine($"queue Count {queue.Count}");
+                            break;
+                        case '+':
+                            string value = input.Substring(1);
+                            queue.Enqueue(value);
+                            break;
+                        case '-':
+                            string value2 = input.Substring(1);
+                            queue.Dequeue();
+                            break;
+                        default:
+                            Console.WriteLine("input of + and - is missing");
+                            break;
+                    }
+
+                }
+                catch (Exception e)
+                {
+
+                    Console.WriteLine("value is missing");
+                }
+            }
+            while (true);
         }
 
         /// <summary>
